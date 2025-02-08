@@ -1,4 +1,4 @@
-import { useSensorStore } from "../store/sensorStore";
+import { useSensorStore } from "../../store/sensorStore";
 
 const ReactorCore = () => {
     const { temperature, pressure, powerOutput } = useSensorStore((state) => state.sensorData);

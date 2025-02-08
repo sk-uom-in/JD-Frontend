@@ -1,7 +1,7 @@
 "use client";
 import { useEffect } from "react";
-import socket from "../utils/socket";
-import { useSensorStore } from "../store/sensorStore";
+import socket from "../../utils/socket";
+import { useSensorStore } from "../../store/sensorStore";
 
 const WebSocketProvider = ({ children }: { children: React.ReactNode }) => {
     const setSensorData = useSensorStore((state) => state.setSensorData);
