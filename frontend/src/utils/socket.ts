@@ -1,9 +1,17 @@
 import { io } from "socket.io-client";
 
-const socket = io("http://localhost:5000", { transports: ["websocket"] });
+const socket = io("http://localhost:5000", { 
+  transports: ["websocket"],
+  autoConnect: true,
+  reconnection: true
+});
 
-export const sendSensorSelection = (sensorType: string, sensorName: string) => {
-    socket.emit("sensor_selection", { type: sensorType, name: sensorName });
-};
+socket.on("connect_error", (error) => {
+  console.log("Socket connection error:", error);
+});
+
+socket.on("connect", () => {
+  console.log("Socket connected");
+});
 
 export default socket;

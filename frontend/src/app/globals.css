@@ -3,28 +3,49 @@
 @tailwind utilities;
 
 :root {
-  --primary: #1a1a2e;
-  --secondary: #16213e;
-  --accent: #0f3460;
-  --text-primary: #ffffff;
-  --text-secondary: #e1e1e1;
-  --success: #4ade80;
-  --warning: #fbbf24;
-  --danger: #ef4444;
+  --background: #0F1729;  /* Dark navy blue */
+  --secondary: #1B2437;   /* Slightly lighter navy for cards */
+  --text: #FFFFFF;
+  --text-secondary: #94A3B8;
+  --accent: #2563EB;
+  
+  /* Status colors */
+  --status-stable: #22C55E;
+  --status-warning: #F59E0B;
+  --status-error: #EF4444;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* Ensure html and body take full height */
+html,
 body {
-  color: var(--text-primary);
-  background: var(--primary);
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
   min-height: 100vh;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: var(--background);
+  color: var(--text);
+}
+
+/* Make sure the root div also takes full height */
+#__next,
+main {
+  min-height: 100vh;
+  background-color: var(--background);
+}
+
+.card {
+  background-color: var(--secondary);
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+/* Add these utility classes if needed */
+.bg-primary {
+  background-color: var(--background);
+}
+
+.bg-secondary {
+  background-color: var(--secondary);
 }
 
 /* Custom component styles */

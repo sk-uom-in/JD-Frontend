@@ -1,41 +1,43 @@
 'use client';
 
-import { useAuth0 } from '@auth0/auth0-react';
+import { useAuth } from '@/hooks/useAuth';
 
 export default function LoginButton() {
-  const { loginWithRedirect, logout, isAuthenticated, isLoading } = useAuth0();
+  const { isAuthenticated, isLoading, login, logout, userEmail } = useAuth();
 
   if (isLoading) {
     return (
-      <button className="btn btn-primary" disabled>
-        Loading...
+      <button 
+        className="px-4 py-2 rounded bg-[var(--accent)] bg-opacity-50 text-white cursor-not-allowed" 
+        disabled
+      >
+        <span className="opacity-50">Please wait...</span>
       </button>
     );
   }
 
   if (isAuthenticated) {
     return (
-      <button
-        className="btn btn-primary"
-        onClick={() => logout({ 
-          logoutParams: { 
-            returnTo: window.location.origin 
-          }
-        })}
-      >
-        Log Out
-      </button>
+      <div className="flex items-center gap-4">
+        <span className="text-sm text-[var(--text-secondary)]">
+          {userEmail}
+        </span>
+        <button
+          onClick={logout}
+          className="px-4 py-2 rounded bg-red-500 hover:bg-red-600 text-white transition-colors"
+        >
+          Logout
+        </button>
+      </div>
     );
   }
 
   return (
-    <button 
-      className="btn btn-primary" 
-      onClick={() => loginWithRedirect({
-        appState: { returnTo: window.location.pathname }
-      })}
+    <button
+      onClick={(e) => login()}
+      className="px-4 py-2 rounded bg-[var(--accent)] hover:bg-opacity-90 text-white transition-colors"
     >
-      Log In
+      Login
     </button>
   );
-}
+} 
