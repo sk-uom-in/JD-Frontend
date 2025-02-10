@@ -16,6 +16,7 @@ type PumpData = {
 type PumpName = keyof typeof pumpSensorData;
 
 interface SensorStore {
+  [x: string]: any;
   selectedPump: PumpName | null;
   setSelectedPump: (pump: PumpName | null) => void;
   pumpData: PumpData | null;

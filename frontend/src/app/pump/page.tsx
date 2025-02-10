@@ -1,42 +1,27 @@
-'use client';
+"use client";
 
-import PumpSelector from '@/components/selectors/PumpSelector';
-import Dashboard from '@/components/layout/Dashboard';
-import { useSensorStore } from '@/store/sensorStore';
-import { pumpSensorData } from '@/utils/mockData';
-import ProtectedRoute from '@/components/auth/ProtectedRoute';
-
-type PumpName = keyof typeof pumpSensorData;
+import { useState } from "react";
+import PumpStatus from "@/components/dashboard/PumpStatus";
+import EmergencyAlerts from "@/components/dashboard/EmergencyAlerts";
+import { useWebSocket } from "@/components/layout/WebSocketProvider";
+import { PumpName } from "@/store/sensorStore";
 
 export default function PumpPage() {
-  const { selectedPump, setSelectedPump } = useSensorStore();
+  const [selectedPump, setSelectedPump] = useState<PumpName | null>(null);
+  const { sensorData, accidentData } = useWebSocket();
 
   return (
     <div className="space-y-6">
-      <ProtectedRoute>
-        <div className="card">
-          <h2 className="text-xl font-semibold mb-4">Pump Monitoring</h2>
-          <div className="max-w-xs">
-            <label className="block text-sm font-medium mb-2">Select Pump Sensor</label>
-            <PumpSelector 
-              selectedPump={selectedPump as PumpName | null} 
-              setSelectedPump={setSelectedPump}
-            />
-          </div>
-        </div>
-
-        {selectedPump ? (
-          <div className="card">
-            <Dashboard />
-          </div>
-        ) : (
-          <div className="card">
-            <p className="text-[var(--text-secondary)]">
-              Please select a pump to view its monitoring data.
-            </p>
-          </div>
-        )}
-      </ProtectedRoute>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <PumpStatus 
+          selectedPump={selectedPump}
+          sensorData={sensorData}
+        />
+        <EmergencyAlerts 
+          selectedPump={selectedPump}
+          accidentData={accidentData}
+        />
+      </div>
     </div>
   );
 }

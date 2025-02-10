@@ -2,7 +2,7 @@
 
 import { Auth0Provider } from '@auth0/auth0-react';
 import { RoleProvider } from '@/contexts/RoleContext';
-import WebSocketProvider from '@/components/layout/WebSocketProvider';
+import { WebSocketProvider } from '@/components/layout/WebSocketProvider';
 
 export default function Providers({
   children,
